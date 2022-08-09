@@ -28,4 +28,7 @@ function onInput() {
     if (name === "") {
         return (countryList.innerHTML = ""), (countryInfo.innerHTML = "");
     }
+    //функція пошуку!!!
 }
+
+//7. Виведення переліку країн які задовільняють пошуку
