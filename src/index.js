@@ -1,4 +1,6 @@
 1//1. Імпорт бібліотек
+import { fetchImgApi } from "./js/fetchApi";
+import { renderGallery } from "./js/renderGalleru";
 import debounce from 'lodash.debounce'
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import SimpleLightbox from "simplelightbox";
@@ -31,4 +33,4 @@ function onInput() {
     //функція пошуку!!!
 }
 
-//7. Виведення переліку країн які задовільняють пошуку
+//7. Виведення  галереї яка задовільняють пошуку!!
