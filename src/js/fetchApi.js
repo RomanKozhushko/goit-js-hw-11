@@ -1,5 +1,5 @@
 import axios from 'axios';
-const KEY = '29133647-3d8509d2cb813d5d67d4bc82b';
+const KEY = '29184640-266ee5361b73d654bedf55260';
 
 axios.defaults.baseURL = 'https://pixabay.com/api/'
 
