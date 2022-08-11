@@ -3,6 +3,7 @@ import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { fetchImgApi } from "./js/fetchApi";
+import { fetchImgApiNext } from "./js/fetchApiNext";
 import { renderGallery } from "./js/renderGallery";
 
 // 2. Достум до форм та галереї
@@ -49,7 +50,7 @@ function onLoadMore () {
     page += 1
     simpleLightBox.destroy()
 
-    fetchImgApi(query, page, perPage).then(({data}) => {
+    fetchImgApiNext(query, page, perPage).then(({data}) => {
         if(data.totalHits === 0) {
             return Notify.failure('Sorry, there are no images matching your search query. Please try again.')
         } else {
