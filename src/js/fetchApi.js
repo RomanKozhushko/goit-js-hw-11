@@ -9,4 +9,5 @@ async function fetchImgApi (query, page, perPage) {
     )
     return response
   }
-  export {fetchImgApi}
+export { fetchImgApi }
+  
