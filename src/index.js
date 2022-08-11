@@ -36,9 +36,7 @@ function onSearchForm(event) {
     if(query === "") {
         return Notify.failure('The search string cannot be empty. Please specify your search query.')
     }
-    
-      
-            
+               
 
 fetchImgApi(query, page, perPage).then(({data}) => {
     if (data.totalHits === 0 || data.totalHits - perPage * (page - 1) <= page) {
