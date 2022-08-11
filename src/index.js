@@ -1,6 +1,6 @@
 1//1. Імпорт бібліотек
 import { fetchImgApi } from "./js/fetchApi";
-import { renderGallery } from "./js/renderGalleru";
+import { renderGallery } from "./js/renderGallery";
 import debounce from 'lodash.debounce'
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import SimpleLightbox from "simplelightbox";
@@ -13,6 +13,7 @@ const btnSearch = document.querySelector("button[data-search]");
 
 // 3. Прослуховування інпута із затримкою!
 input.addEventListener("input", debounce(onInput, DEBOUNCE_DELAY));
+btnSearch.addEventListener("click", searchGallery)
 
 // 4. Функції виведення помилок
 // 4.1 Введення недостатньої кількості символів
