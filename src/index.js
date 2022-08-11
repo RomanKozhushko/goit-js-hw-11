@@ -9,12 +9,15 @@ import { renderGallery } from "./js/renderGallery";
 const gallery = document.querySelector('.search__gallery');
 const form = document.querySelector('.search__form');
 const loadMore = document.querySelector('.search__loadmore');
+// const hidden = document.querySelector('body.button')
 
 // 3. Визначення змінних
 let query = '';
 let page = 1;
 let simpleLightBox;
 const perPage = 40;
+// let remainder = data.totalHits - perPage * (page - 1);
+// console(remainder);
 
 // 4. Прослуховування кнопок
 form.addEventListener("submit",onSearchForm)
@@ -34,7 +37,8 @@ function onSearchForm (event) {
 fetchImgApi(query, page, perPage).then(({data}) => {
     if(data.totalHits === 0) {
         return Notify.failure('Sorry, there are no images matching your search query. Please try again.')
-    } else {
+    }
+    else {
         renderGallery(data.hits)
         simpleLightBox = new SimpleLightbox('.search__gallery a').refresh()
         Notify.success(`Hooray! We found ${data.totalHits} images.`)
@@ -44,8 +48,9 @@ fetchImgApi(query, page, perPage).then(({data}) => {
 function onLoadMore () {
     page += 1
     simpleLightBox.destroy()
-    fetchImgApiNext(query, page, perPage).then(({data}) => {
-        if(data.totalHits === ) {
+
+    fetchImgApi(query, page, perPage).then(({data}) => {
+        if(data.totalHits === 0) {
             return Notify.failure('Sorry, there are no images matching your search query. Please try again.')
         } else {
             renderGallery(data.hits)
