@@ -23,42 +23,55 @@ function infoAlert() {
     Notify.info("Too many matches found. Please enter a more specific name.");
 }
 
-// 4.2 Введення неіснуючої країни
+// 4.2 Введення неіснуючого критерію
 function wrongAlert() {
-    Notify.failure("Oops, there is no country with that name");
+    Notify.failure("Sorry, there are no images matching your search query. Please try again.");
 }
 
 // 5. Функція trim для вирізки пробілів!
-function onSearchForm() {
+function onSearchForm(event) {
+    event.preventDefault()
     const name = input.value.trim();
     if (name === "") {
-        return (imgList.innerHTML = ""), (countryInfo.innerHTML = "");
+        return (imgList.innerHTML = ""), (Info.innerHTML = "");
     }
 
-// 6. Пошук заданої країни!
- fetchCountries(name)
-    .then(country => {
-      countryList.innerHTML = "";
-      countryInfo.innerHTML = "";
-      if (country.length === 1) {
-        countryInfo.insertAdjacentHTML("beforeend", newCountryInfo(country));
-      }else if (country.length >= 10) {
+// 6. Пошук заданої групи картинок!
+ fetchImgApi(name)
+    .then(img => {
+      imgList.innerHTML = "";
+      imgInfo.innerHTML = "";
+      if (img.length === 1) {
+        imgInfo.insertAdjacentHTML("beforeend", newimgInfo(img));
+      }else if (img.length >= 10) {
         infoAlert()
       }else {
-        countryList.insertAdjacentHTML("beforeend", newCountryList(country));
+        imgList.insertAdjacentHTML("beforeend", newCountryList(img));
       }
     })
     .catch(wrongAlert);
 }
 //7. Виведення переліку країн які задовільняють пошуку
-function newCountryList(country) {
-  const layoutList = country
-    .map(({ name, flags }) => {
+function newImgList(img) {
+  const layoutList = img.map(({name}) => {
       const layout = `
-          <li class="country-list__item">
-              <img class="country-list__flag" src="${flags.svg}" alt="${name.official}">
-              <h2 class="country-list__name">${name.official}</h2>
-          </li>`;
+          <div class="photo-card">
+  <img src="${name.pageURL}" alt="" loading="lazy" />
+  <div class="info">
+    <p class="info-item">
+      <b>Likes "${name.likes}"</b>
+    </p>
+    <p class="info-item">
+      <b>Views "${name.views}"</b>
+    </p>
+    <p class="info-item">
+      <b>Comments "${name.comments}"</b>
+    </p>
+    <p class="info-item">
+      <b>Downloads "${name.downloads}"</b>
+    </p>
+  </div>
+</div>`;
       return layout;
     }).join("");
   return layoutList;

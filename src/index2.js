@@ -49,10 +49,10 @@ function onInput() {
 //7. Виведення переліку країн які задовільняють пошуку
 function newCountryList(country) {
   const layoutList = country
-    .map(({ name, flags }) => {
+    .map(({ name, userImageURL }) => {
       const layout = `
           <li class="country-list__item">
-              <img class="country-list__flag" src="${flags.svg}" alt="${name.official}">
+              <img class="country-list__flag" src="${userImageURL.svg}" alt="${name.official}">
               <h2 class="country-list__name">${name.official}</h2>
           </li>`;
       return layout;
