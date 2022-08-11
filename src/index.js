@@ -44,13 +44,13 @@ fetchImgApi(query, page, perPage).then(({data}) => {
 function onLoadMore () {
     page += 1
     simpleLightBox.destroy()
-fetchImgApi(query, page, perPage).then(({data}) => {
-    if(data.totalHits === 0) {
-        return Notify.failure('Sorry, there are no images matching your search query. Please try again.')
-    } else {
-        renderGallery(data.hits)
-        simpleLightBox = new SimpleLightbox('.search__gallery a').refresh()
-        Notify.success(`Hooray! Left until the end ${data.totalHits - perPage * (page - 1)} images.`)
+    fetchImgApiNext(query, page, perPage).then(({data}) => {
+        if(data.totalHits === ) {
+            return Notify.failure('Sorry, there are no images matching your search query. Please try again.')
+        } else {
+            renderGallery(data.hits)
+            simpleLightBox = new SimpleLightbox('.search__gallery a').refresh()
+            Notify.success(`Hooray! Left until the end ${data.totalHits - perPage * (page - 1)} images.`)
+        }
+    }).catch(error => console.log(error))
     }
-  }).catch(error => console.log(error))
-}
