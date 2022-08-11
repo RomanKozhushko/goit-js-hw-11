@@ -8,7 +8,7 @@
     <script type="module" src="./index.js"></script>
   </head>
   <body>
-    <form class="search-form" id="search-form">
+    <form class="search__form" id="search-form">
       <input
         id="input"
         type="text"
@@ -16,7 +16,11 @@
         autocomplete="off"
         placeholder="Search images..."
       />
-      <button type="submit" data-search>Search</button>
+      <button type="submit" class="search__button" data-search>Search</button>
     </form>
+    <div class="search__gallery">
+      <!-- Карточки изображений -->
+    </div>
+    <button type="button" class="search__loadmore">Load more</button>
   </body>
 </html>

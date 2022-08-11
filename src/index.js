@@ -1,82 +1,56 @@
-1//1. Імпорт бібліотек
-import { fetchImgApi } from "./js/fetchApi";
-import { renderGallery } from "./js/renderGallery";
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
+// 1. Виклики імпортів
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
-import axios from 'axios';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { fetchImgApi } from "./js/fetchApi";
+import { renderGallery } from "./js/renderGallery";
 
-//2. Доступ до ресурсів
-const form = document.querySelector('.search-form');
-const gallery = document.querySelector('.gallery');
-const loadMoreImg = document.querySelector('.load-more');
+// 2. Достум до форм та галереї
+const gallery = document.querySelector('.search__gallery');
+const form = document.querySelector('.search__form');
+const loadMore = document.querySelector('.search__loadmore');
 
-// 3. Прослуховування ФОРМИ!
+// 3. Визначення змінних
+let query = '';
+let page = 1;
+let simpleLightBox;
+const perPage = 40;
+
+// 4. Прослуховування кнопок
 form.addEventListener("submit",onSearchForm)
-
-// 4. Прослуховування кнопки LoadMore!
-loadMoreImg.addEventListener('click', onLoadMore)
-
-// 4. Функції виведення помилок
-// 4.1 Введення недостатньої кількості символів
-function infoAlert() {
-    Notify.info("Too many matches found. Please enter a more specific name.");
-}
-
-// 4.2 Введення неіснуючого критерію
-function wrongAlert() {
-    Notify.failure("Sorry, there are no images matching your search query. Please try again.");
-}
-
-// 5. Функція trim для вирізки пробілів!
-function onSearchForm(event) {
+loadMore.addEventListener('click', onLoadMore)
+// 5.
+function onSearchForm (event) {
     event.preventDefault()
-    const name = input.value.trim();
-    if (name === "") {
-        return (imgList.innerHTML = ""), (Info.innerHTML = "");
+    window.scroll({top : 0})
+    page = 1
+    query =  event.currentTarget.searchQuery.value.trim()
+    gallery.innerHTML = ""
+
+    if(query === "") {
+        return Notify.failure('The search string cannot be empty. Please specify your search query.')
     }
 
-// 6. Пошук заданої групи картинок!
- fetchImgApi(name)
-    .then(img => {
-      imgList.innerHTML = "";
-      imgInfo.innerHTML = "";
-      if (img.length === 1) {
-        imgInfo.insertAdjacentHTML("beforeend", newimgInfo(img));
-      }else if (img.length >= 10) {
-        infoAlert()
-      }else {
-        imgList.insertAdjacentHTML("beforeend", newCountryList(img));
-      }
-    })
-    .catch(wrongAlert);
+fetchImgApi(query, page, perPage).then(({data}) => {
+    if(data.totalHits === 0) {
+        return Notify.failure('Sorry, there are no images matching your search query. Please try again.')
+    } else {
+        renderGallery(data.hits)
+        simpleLightBox = new SimpleLightbox('.search__gallery a').refresh()
+        Notify.success(`Hooray! We found ${data.totalHits} images.`)
+    }
+  }).catch(error => console.log(error))
 }
-//7. Виведення переліку країн які задовільняють пошуку
-function newImgList(img) {
-  const layoutList = img.map(({name}) => {
-      const layout = `
-          <div class="photo-card">
-  <img src="${name.pageURL}" alt="" loading="lazy" />
-  <div class="info">
-    <p class="info-item">
-      <b>Likes "${name.likes}"</b>
-    </p>
-    <p class="info-item">
-      <b>Views "${name.views}"</b>
-    </p>
-    <p class="info-item">
-      <b>Comments "${name.comments}"</b>
-    </p>
-    <p class="info-item">
-      <b>Downloads "${name.downloads}"</b>
-    </p>
-  </div>
-</div>`;
-      return layout;
-    }).join("");
-  return layoutList;
+function onLoadMore () {
+    page += 1
+    simpleLightBox.destroy()
+fetchImgApi(query, page, perPage).then(({data}) => {
+    if(data.totalHits === 0) {
+        return Notify.failure('Sorry, there are no images matching your search query. Please try again.')
+    } else {
+        renderGallery(data.hits)
+        simpleLightBox = new SimpleLightbox('.search__gallery a').refresh()
+        Notify.success(`Hooray! Left until the end ${data.totalHits - perPage * (page - 1)} images.`)
+    }
+  }).catch(error => console.log(error))
 }
-
-
-
-//7. Виведення  галереї яка задовільняють пошуку!!

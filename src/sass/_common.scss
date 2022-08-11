@@ -1,16 +1,48 @@
 @import '~node_modules/modern-normalize/modern-normalize.css';
 
-.search-form{
+body{
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.search__form{
     display: flex;
-    background-color: blue;
+    background-color: rebeccapurple;
     padding-bottom: 20px;
     padding-top: 20px;
     justify-content: center;
+    
 }
-button{
-    margin-left: -64px;
+.search__button{
+    margin-left: -63px;
+    
 }
 input{
     width: 300px;
     height: 30px;
+}
+.search__loadmore{
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+   margin-top: 20px;
+   margin-bottom: 20px;
+}
+.hidden{
+    display: none;
+}
+
+.search__gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+}
+.info-item{
+    color: rebeccapurple;
+   
+}
+.gallery-item{
+    margin: 10px;
 }
