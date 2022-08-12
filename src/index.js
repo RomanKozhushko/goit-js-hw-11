@@ -10,47 +10,44 @@ import { renderGallery } from "./js/renderGallery";
 const gallery = document.querySelector('.search__gallery');
 const form = document.querySelector('.search__form');
 const loadMore = document.querySelector('.search__loadmore');
-
+// const input = document
+// loadMore.classList.add("no-hidden")
 
 // 3. Визначення змінних
 let query = '';
 let page = 1;
 let simpleLightBox;
 const perPage = 40;
-;
-
 
 // 4. Прослуховування кнопок
 form.addEventListener("submit",onSearchForm)
 loadMore.addEventListener("click", onLoadMore)
 // 5.
 function onSearchForm(event) {
+    // // loadMore.classList.remove("no-hidden")
+    // document.querySelector("input").value = "";
+    // event.preventDefault()
+    // // form.value = "";
+    // window.scroll({top : 0})
+    // page = 1
+    // query =  event.currentTarget.searchQuery.value.trim()
+    // gallery.innerHTML = ""
     
-    event.preventDefault()
-    window.scroll({top : 0})
-    page = 1
-    query =  event.currentTarget.searchQuery.value.trim()
-    gallery.innerHTML = ""
-    
-
     if(query === "") {
         return Notify.failure('The search string cannot be empty. Please specify your search query.')
     }
-               
-
-fetchImgApi(query, page, perPage).then(({data}) => {
-    if (data.totalHits === 0 || data.totalHits - perPage * (page - 1) <= page) {
-      
-        return Notify.failure('Sorry, there are no images matching your search query. Please try again.')
+       fetchImgApi(query, page, perPage).then(({ data }) => {
+        if (data.totalHits === 0) {
+            return Notify.failure('Sorry, there are no images matching your search query. Please try again.')
     }    
     else {
         renderGallery(data.hits)
         simpleLightBox = new SimpleLightbox('.search__gallery a').refresh()
         Notify.success(`Hooray! We found ${data.totalHits} images.`)
-        loadMore.classList.add("no-hidden")
-        
-    }
-  }).catch(error => console.log(error))
+        form.value = "";
+      }
+    }).catch(error => console.log(error))
+     
 }
 
 function onLoadMore () {
@@ -59,7 +56,7 @@ function onLoadMore () {
     
     fetchImgApiNext(query, page, perPage).then(({data}) => {
         if(data.totalHits === 0) {
-            hiddenLoadMore.classList.add("no-hidden")
+            
         }
         else {
             renderGallery(data.hits)
@@ -71,4 +68,3 @@ function onLoadMore () {
     }).catch(error => console.log(error))
 }
 
-  
