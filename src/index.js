@@ -77,7 +77,3 @@ function onLoadMore() {
     })
     .catch(error => console.log(error));
 }
-
-//  if((data.totalHits - perPage * (page - 1)) <= perPage) {
-//         hiddenLoadMore.classList.remove("no-hidden")
-//         }
