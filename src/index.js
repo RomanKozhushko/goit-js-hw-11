@@ -67,13 +67,11 @@ function onLoadMore() {
       } else {
         renderGallery(data.hits);
         simpleLightBox = new SimpleLightbox('.search__gallery a').refresh();
-        Notify.success(
-          `Hooray! Left until the end ${
-            data.totalHits - perPage * (page - 1)
-          } images.`
-        );
         if (data.totalHits - perPage * (page - 1) < perPage) {
-          loadMore.classList.remove('no-hidden');
+            loadMore.classList.remove('no-hidden');
+             return Notify.failure(
+          "Were sorry, but you've reached the end of search results."
+        )
         }
       }
     })
