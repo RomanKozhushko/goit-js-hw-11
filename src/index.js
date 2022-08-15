@@ -103,5 +103,3 @@ function onLoadMore() {
         }
       }
     })
-    .catch(error => console.log(error));
-}
