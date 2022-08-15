@@ -83,6 +83,3 @@ function onLoadMore() {
 
 function onLoadMore() {
   page += 1;
-  simpleLightBox.destroy();
-
-  
