@@ -77,3 +77,31 @@ function onLoadMore() {
     })
     .catch(error => console.log(error));
 }
+
+
+
+
+function onLoadMore() {
+  page += 1;
+  simpleLightBox.destroy();
+
+  fetchImgApiNext(query, page, perPage)
+    .then(({ data }) => {
+      if (data.totalHits === 0) {
+        // hiddenLoadMore.classList.remove("no-hidden")
+        return Notify.failure(
+          'Sorry, there are no images matching your search query. Please try again.'
+        );
+      } else {
+        renderGallery(data.hits);
+        simpleLightBox = new SimpleLightbox('.search__gallery a').refresh();
+        if (data.totalHits - perPage * (page - 1) < 0) {
+            loadMore.classList.remove('no-hidden');
+             return Notify.failure(
+          "Were sorry, but you've reached the end of search results."
+        )
+        }
+      }
+    })
+    .catch(error => console.log(error));
+}
