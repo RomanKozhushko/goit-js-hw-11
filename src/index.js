@@ -82,4 +82,3 @@ function onLoadMore() {
 
 
 function onLoadMore() {
-  page += 1;
