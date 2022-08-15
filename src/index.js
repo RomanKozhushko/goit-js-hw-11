@@ -94,5 +94,3 @@ function onLoadMore() {
         );
       } else {
         renderGallery(data.hits);
-        simpleLightBox = new SimpleLightbox('.search__gallery a').refresh();
-  
