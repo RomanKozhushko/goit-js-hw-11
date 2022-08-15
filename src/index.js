@@ -87,5 +87,4 @@ function onLoadMore() {
 
   fetchImgApiNext(query, page, perPage)
     .then(({ data }) => {
-      if (data.totalHits === 0) {
       
