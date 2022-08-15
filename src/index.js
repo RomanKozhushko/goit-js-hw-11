@@ -89,5 +89,4 @@ function onLoadMore() {
     .then(({ data }) => {
       if (data.totalHits === 0) {
         // hiddenLoadMore.classList.remove("no-hidden")
-        return Notify.failure(
-    
+       
