@@ -93,4 +93,4 @@ function onLoadMore() {
           'Sorry, there are no images matching your search query. Please try again.'
         );
       } else {
-        renderGallery(data.hits);
+ 
