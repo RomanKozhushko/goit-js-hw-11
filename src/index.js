@@ -90,6 +90,4 @@ function onLoadMore() {
       if (data.totalHits === 0) {
         // hiddenLoadMore.classList.remove("no-hidden")
         return Notify.failure(
-          'Sorry, there are no images matching your search query. Please try again.'
-        );
-  
+    
