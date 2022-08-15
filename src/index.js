@@ -88,5 +88,4 @@ function onLoadMore() {
   fetchImgApiNext(query, page, perPage)
     .then(({ data }) => {
       if (data.totalHits === 0) {
-        // hiddenLoadMore.classList.remove("no-hidden")
-       
+      
