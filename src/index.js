@@ -85,5 +85,4 @@ function onLoadMore() {
   page += 1;
   simpleLightBox.destroy();
 
-  fetchImgApiNext(query, page, perPage)
   
