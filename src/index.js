@@ -98,5 +98,4 @@ function onLoadMore() {
         if (data.totalHits - perPage * (page - 1) < 0) {
             loadMore.classList.remove('no-hidden');
              return Notify.failure(
-          "Were sorry, but you've reached the end of search results."
-     =
+    
