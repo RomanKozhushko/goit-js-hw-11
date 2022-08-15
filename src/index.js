@@ -97,5 +97,4 @@ function onLoadMore() {
         simpleLightBox = new SimpleLightbox('.search__gallery a').refresh();
         if (data.totalHits - perPage * (page - 1) < 0) {
             loadMore.classList.remove('no-hidden');
-             return Notify.failure(
     
